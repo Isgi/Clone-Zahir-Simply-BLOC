@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
-import 'dart:async';
+import 'package:kiwi/kiwi.dart' as kiwi;
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:zahir_online_clone/models/contacts_model.dart';
 import 'package:zahir_online_clone/bloc/contacts_bloc.dart';
+import 'package:zahir_online_clone/resources/contacts_data_source.dart';
 import 'package:zahir_online_clone/styles/shimmer_list.dart';
 import 'package:zahir_online_clone/screens/contacts/contacts_state.dart';
-import 'package:zahir_online_clone/resources/contacts_provider.dart';
 
 class Contacts extends StatefulWidget {
   @override
@@ -15,79 +15,19 @@ class Contacts extends StatefulWidget {
 
 class _ContactsState extends State<Contacts> {
 
+  final _contactsBloc = kiwi.Container().resolve<ContactsBloc>();
   final _scrollController = ScrollController();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  static const offsetVisibleThreshold = 50;
-
-  ContactsBloc _bloc;
-  StreamSubscription<void> _subscriptionReachMaxItems;
-  StreamSubscription<Object> _subscriptionError;
 
   @override
   void initState() {
     super.initState();
-    _bloc = ContactsBloc(ContactsProvider());
-    // listen error, reach max items
-    _subscriptionReachMaxItems = _bloc.loadedAllContacts.listen(_onReachMaxItem);
-    _subscriptionError = _bloc.error.listen(_onError);
-    // add listener to scroll controller
-    _scrollController.addListener(_onScroll);
-    // load first page
-    _bloc.loadFirstPage.add(null);
+    _contactsBloc.getContacts();
   }
 
   @override
   void dispose() {
-    _scrollController.dispose();
-
-    _subscriptionError.cancel();
-    _subscriptionReachMaxItems.cancel();
-    _bloc.dispose();
-
     super.dispose();
-  }
-
-  Future<void> makeAnimation() async {
-    final offsetFromBottom =
-        _scrollController.position.maxScrollExtent - _scrollController.offset;
-    if (offsetFromBottom < offsetVisibleThreshold) {
-      await _scrollController.animateTo(
-        _scrollController.offset - (offsetVisibleThreshold - offsetFromBottom),
-        duration: Duration(milliseconds: 1000),
-        curve: Curves.easeOut,
-      );
-    }
-  }
-
-  void _onReachMaxItem(void _) async {
-    // show animation when loaded all data
-    await makeAnimation();
-    await (_scaffoldKey.currentState
-        ?.showSnackBar(
-      SnackBar(
-        content: Text('Got all data!'),
-      ),
-    )
-        ?.closed);
-  }
-
-  void _onError(Object error) async {
-    await (_scaffoldKey.currentState
-        ?.showSnackBar(
-      SnackBar(
-        content: Text('Error occurred: $error'),
-      ),
-    )
-        ?.closed);
-  }
-
-  void _onScroll() {
-    // if scroll to bottom of list, then load next page
-    if (_scrollController.offset + offsetVisibleThreshold >=
-        _scrollController.position.maxScrollExtent) {
-      print('_bloc.loadMore.add(null)');
-      _bloc.loadMore.add(null);
-    }
+    _contactsBloc.dispose();
   }
 
   @override
@@ -99,16 +39,10 @@ class _ContactsState extends State<Contacts> {
       ),
       body: Container(
         color: Colors.white,
-        child: StreamBuilder<ContactsState>(
-          stream: _bloc.contacts,
-          builder: (context, AsyncSnapshot<ContactsState> snapshot) {
-//            print(snapshot.data.isPending);
-            if (snapshot.hasError) {
-              return Center(
-                child: Text('Error ${snapshot.error}'),
-              );
-            }
-            if (!snapshot.hasData) {
+        child: BlocBuilder(
+          bloc: _contactsBloc,
+          builder: (context, ContactsState state) {
+            if (state.results.isEmpty) {
               return Container(
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
@@ -119,14 +53,18 @@ class _ContactsState extends State<Contacts> {
                 ),
               );
             }
-            return RefreshIndicator(
-              color: Colors.blue,
-              backgroundColor: Colors.white,
-              child: _buildList(snapshot),
-              onRefresh: () {
-                _bloc.loadFirstPage.add(null);
-              }
+            return NotificationListener<ScrollNotification>(
+              onNotification: (n) => _handleScrollNotification(state, n),
+              child: _buildList(state),
             );
+//            return RefreshIndicator(
+//              color: Colors.blue,
+//              backgroundColor: Colors.white,
+//              child: _buildList(state),
+//              onRefresh: () {
+//                _contactsBloc.getContacts();
+//              }
+//            );
           }
         ),
       ),
@@ -138,22 +76,26 @@ class _ContactsState extends State<Contacts> {
     );
   }
 
+  bool _handleScrollNotification(ContactsState state, ScrollNotification notification) {
+    if (notification is ScrollEndNotification && _scrollController.position.extentAfter == 0 && state.results.length < state.count) {
+      _contactsBloc.loadmoreContacts(state.links.next);
+    }
+    return false;
+  }
+
 }
 
-Widget _buildList(AsyncSnapshot<ContactsState> snapshot) {
-  final contacts = snapshot.data.contacts;
-  final isLoading = snapshot.data.isLoading;
-  final error = snapshot.data.error;
-
+Widget _buildList(ContactsState snapshot) {
+  final contacts = snapshot.results;
   return ListView.builder(
-    itemCount: contacts.results.length,
+    itemCount: contacts.length,
     itemBuilder: (BuildContext context, int i) {
       return ListTile(
         leading: CircleAvatar(
-          child: Text(contacts.results[i].name[0]),
+          child: Text(contacts[i].name[0]),
         ),
-        title: Text(contacts.results[i].name),
-        subtitle: Text(contacts.results[i].code),
+        title: Text(contacts[i].name),
+        subtitle: Text(contacts[i].code),
       );
     }
   );

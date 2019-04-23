@@ -6,5 +6,5 @@ import 'package:zahir_online_clone/models/contacts_model.dart';
 part 'serializers.g.dart';
 
 /// Collection of generated serializers for the built_value chat example.
-@SerializersFor([ContactsModel, Result, Links, ListBuilder])
+@SerializersFor([ContactsModel, Results, Links, PageContext])
 final Serializers serializers = _$serializers;

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import './routes.dart';
+import 'package:zahir_online_clone/injection_container.dart';
+import 'package:zahir_online_clone/routes.dart';
 
 void main() {
 //  MaterialPageRoute.debugEnableFadingRoutes = true;
+  initKiwi();
   runApp(new MyApp());
 }
 

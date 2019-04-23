@@ -6,8 +6,247 @@ part of 'contacts_model.dart';
 // BuiltValueGenerator
 // **************************************************************************
 
+Serializer<Links> _$linksSerializer = new _$LinksSerializer();
+Serializer<Results> _$resultsSerializer = new _$ResultsSerializer();
+Serializer<PageContext> _$pageContextSerializer = new _$PageContextSerializer();
 Serializer<ContactsModel> _$contactsModelSerializer =
     new _$ContactsModelSerializer();
+
+class _$LinksSerializer implements StructuredSerializer<Links> {
+  @override
+  final Iterable<Type> types = const [Links, _$Links];
+  @override
+  final String wireName = 'Links';
+
+  @override
+  Iterable serialize(Serializers serializers, Links object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'next',
+      serializers.serialize(object.next, specifiedType: const FullType(String)),
+      'first',
+      serializers.serialize(object.first,
+          specifiedType: const FullType(String)),
+      'last',
+      serializers.serialize(object.last, specifiedType: const FullType(String)),
+    ];
+    if (object.previous != null) {
+      result
+        ..add('previous')
+        ..add(serializers.serialize(object.previous,
+            specifiedType: const FullType(String)));
+    }
+
+    return result;
+  }
+
+  @override
+  Links deserialize(Serializers serializers, Iterable serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new LinksBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'next':
+          result.next = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'previous':
+          result.previous = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'first':
+          result.first = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'last':
+          result.last = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$ResultsSerializer implements StructuredSerializer<Results> {
+  @override
+  final Iterable<Type> types = const [Results, _$Results];
+  @override
+  final String wireName = 'Results';
+
+  @override
+  Iterable serialize(Serializers serializers, Results object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'id',
+      serializers.serialize(object.id, specifiedType: const FullType(String)),
+      'code',
+      serializers.serialize(object.code, specifiedType: const FullType(String)),
+      'name',
+      serializers.serialize(object.name, specifiedType: const FullType(String)),
+    ];
+    if (object.bussiness_id_number != null) {
+      result
+        ..add('bussiness_id_number')
+        ..add(serializers.serialize(object.bussiness_id_number,
+            specifiedType: const FullType(String)));
+    }
+    if (object.tax_id_number != null) {
+      result
+        ..add('tax_id_number')
+        ..add(serializers.serialize(object.tax_id_number,
+            specifiedType: const FullType(String)));
+    }
+    if (object.credit_limit != null) {
+      result
+        ..add('credit_limit')
+        ..add(serializers.serialize(object.credit_limit,
+            specifiedType: const FullType(int)));
+    }
+    if (object.is_customer != null) {
+      result
+        ..add('is_customer')
+        ..add(serializers.serialize(object.is_customer,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.is_supplier != null) {
+      result
+        ..add('is_supplier')
+        ..add(serializers.serialize(object.is_supplier,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.is_employee != null) {
+      result
+        ..add('is_employee')
+        ..add(serializers.serialize(object.is_employee,
+            specifiedType: const FullType(bool)));
+    }
+    if (object.is_active != null) {
+      result
+        ..add('is_active')
+        ..add(serializers.serialize(object.is_active,
+            specifiedType: const FullType(bool)));
+    }
+
+    return result;
+  }
+
+  @override
+  Results deserialize(Serializers serializers, Iterable serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new ResultsBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'id':
+          result.id = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'code':
+          result.code = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'name':
+          result.name = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'bussiness_id_number':
+          result.bussiness_id_number = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'tax_id_number':
+          result.tax_id_number = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
+        case 'credit_limit':
+          result.credit_limit = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'is_customer':
+          result.is_customer = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'is_supplier':
+          result.is_supplier = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'is_employee':
+          result.is_employee = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+        case 'is_active':
+          result.is_active = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
+
+class _$PageContextSerializer implements StructuredSerializer<PageContext> {
+  @override
+  final Iterable<Type> types = const [PageContext, _$PageContext];
+  @override
+  final String wireName = 'PageContext';
+
+  @override
+  Iterable serialize(Serializers serializers, PageContext object,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = <Object>[
+      'page',
+      serializers.serialize(object.page, specifiedType: const FullType(int)),
+      'per_page',
+      serializers.serialize(object.per_page,
+          specifiedType: const FullType(int)),
+      'total_pages',
+      serializers.serialize(object.total_pages,
+          specifiedType: const FullType(int)),
+    ];
+
+    return result;
+  }
+
+  @override
+  PageContext deserialize(Serializers serializers, Iterable serialized,
+      {FullType specifiedType = FullType.unspecified}) {
+    final result = new PageContextBuilder();
+
+    final iterator = serialized.iterator;
+    while (iterator.moveNext()) {
+      final key = iterator.current as String;
+      iterator.moveNext();
+      final dynamic value = iterator.current;
+      switch (key) {
+        case 'page':
+          result.page = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'per_page':
+          result.per_page = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'total_pages':
+          result.total_pages = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+      }
+    }
+
+    return result.build();
+  }
+}
 
 class _$ContactsModelSerializer implements StructuredSerializer<ContactsModel> {
   @override
@@ -18,18 +257,32 @@ class _$ContactsModelSerializer implements StructuredSerializer<ContactsModel> {
   @override
   Iterable serialize(Serializers serializers, ContactsModel object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[
-      'count',
-      serializers.serialize(object.count, specifiedType: const FullType(int)),
-      'page_context',
-      serializers.serialize(object.page_context,
-          specifiedType: const FullType(Object)),
-      'links',
-      serializers.serialize(object.links, specifiedType: const FullType(Links)),
-      'results',
-      serializers.serialize(object.results,
-          specifiedType: const FullType(List, const [const FullType(Result)])),
-    ];
+    final result = <Object>[];
+    if (object.count != null) {
+      result
+        ..add('count')
+        ..add(serializers.serialize(object.count,
+            specifiedType: const FullType(int)));
+    }
+    if (object.page_context != null) {
+      result
+        ..add('page_context')
+        ..add(serializers.serialize(object.page_context,
+            specifiedType: const FullType(PageContext)));
+    }
+    if (object.links != null) {
+      result
+        ..add('links')
+        ..add(serializers.serialize(object.links,
+            specifiedType: const FullType(Links)));
+    }
+    if (object.results != null) {
+      result
+        ..add('results')
+        ..add(serializers.serialize(object.results,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(Results)])));
+    }
 
     return result;
   }
@@ -50,18 +303,17 @@ class _$ContactsModelSerializer implements StructuredSerializer<ContactsModel> {
               specifiedType: const FullType(int)) as int;
           break;
         case 'page_context':
-          result.page_context = serializers.deserialize(value,
-              specifiedType: const FullType(Object));
+          result.page_context.replace(serializers.deserialize(value,
+              specifiedType: const FullType(PageContext)) as PageContext);
           break;
         case 'links':
           result.links.replace(serializers.deserialize(value,
               specifiedType: const FullType(Links)) as Links);
           break;
         case 'results':
-          result.results = serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(List, const [const FullType(Result)]))
-              as List<Result>;
+          result.results.replace(serializers.deserialize(value,
+              specifiedType: const FullType(
+                  BuiltList, const [const FullType(Results)])) as BuiltList);
           break;
       }
     }
@@ -86,9 +338,6 @@ class _$Links extends Links {
   _$Links._({this.next, this.previous, this.first, this.last}) : super._() {
     if (next == null) {
       throw new BuiltValueNullFieldError('Links', 'next');
-    }
-    if (previous == null) {
-      throw new BuiltValueNullFieldError('Links', 'previous');
     }
     if (first == null) {
       throw new BuiltValueNullFieldError('Links', 'first');
@@ -187,7 +436,7 @@ class LinksBuilder implements Builder<Links, LinksBuilder> {
   }
 }
 
-class _$Result extends Result {
+class _$Results extends Results {
   @override
   final String id;
   @override
@@ -208,29 +457,11 @@ class _$Result extends Result {
   final bool is_employee;
   @override
   final bool is_active;
-  @override
-  final Object classification;
-  @override
-  final Object default_currency;
-  @override
-  final Object term_of_payment;
-  @override
-  final List<Object> addresses;
-  @override
-  final List<Object> phones;
-  @override
-  final List<Object> emails;
-  @override
-  final List<Object> contact_persons;
-  @override
-  final List<Object> other_fields;
-  @override
-  final List<Object> attachments;
 
-  factory _$Result([void updates(ResultBuilder b)]) =>
-      (new ResultBuilder()..update(updates)).build();
+  factory _$Results([void updates(ResultsBuilder b)]) =>
+      (new ResultsBuilder()..update(updates)).build();
 
-  _$Result._(
+  _$Results._(
       {this.id,
       this.code,
       this.name,
@@ -240,87 +471,30 @@ class _$Result extends Result {
       this.is_customer,
       this.is_supplier,
       this.is_employee,
-      this.is_active,
-      this.classification,
-      this.default_currency,
-      this.term_of_payment,
-      this.addresses,
-      this.phones,
-      this.emails,
-      this.contact_persons,
-      this.other_fields,
-      this.attachments})
+      this.is_active})
       : super._() {
     if (id == null) {
-      throw new BuiltValueNullFieldError('Result', 'id');
+      throw new BuiltValueNullFieldError('Results', 'id');
     }
     if (code == null) {
-      throw new BuiltValueNullFieldError('Result', 'code');
+      throw new BuiltValueNullFieldError('Results', 'code');
     }
     if (name == null) {
-      throw new BuiltValueNullFieldError('Result', 'name');
-    }
-    if (bussiness_id_number == null) {
-      throw new BuiltValueNullFieldError('Result', 'bussiness_id_number');
-    }
-    if (tax_id_number == null) {
-      throw new BuiltValueNullFieldError('Result', 'tax_id_number');
-    }
-    if (credit_limit == null) {
-      throw new BuiltValueNullFieldError('Result', 'credit_limit');
-    }
-    if (is_customer == null) {
-      throw new BuiltValueNullFieldError('Result', 'is_customer');
-    }
-    if (is_supplier == null) {
-      throw new BuiltValueNullFieldError('Result', 'is_supplier');
-    }
-    if (is_employee == null) {
-      throw new BuiltValueNullFieldError('Result', 'is_employee');
-    }
-    if (is_active == null) {
-      throw new BuiltValueNullFieldError('Result', 'is_active');
-    }
-    if (classification == null) {
-      throw new BuiltValueNullFieldError('Result', 'classification');
-    }
-    if (default_currency == null) {
-      throw new BuiltValueNullFieldError('Result', 'default_currency');
-    }
-    if (term_of_payment == null) {
-      throw new BuiltValueNullFieldError('Result', 'term_of_payment');
-    }
-    if (addresses == null) {
-      throw new BuiltValueNullFieldError('Result', 'addresses');
-    }
-    if (phones == null) {
-      throw new BuiltValueNullFieldError('Result', 'phones');
-    }
-    if (emails == null) {
-      throw new BuiltValueNullFieldError('Result', 'emails');
-    }
-    if (contact_persons == null) {
-      throw new BuiltValueNullFieldError('Result', 'contact_persons');
-    }
-    if (other_fields == null) {
-      throw new BuiltValueNullFieldError('Result', 'other_fields');
-    }
-    if (attachments == null) {
-      throw new BuiltValueNullFieldError('Result', 'attachments');
+      throw new BuiltValueNullFieldError('Results', 'name');
     }
   }
 
   @override
-  Result rebuild(void updates(ResultBuilder b)) =>
+  Results rebuild(void updates(ResultsBuilder b)) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ResultBuilder toBuilder() => new ResultBuilder()..replace(this);
+  ResultsBuilder toBuilder() => new ResultsBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is Result &&
+    return other is Results &&
         id == other.id &&
         code == other.code &&
         name == other.name &&
@@ -330,16 +504,7 @@ class _$Result extends Result {
         is_customer == other.is_customer &&
         is_supplier == other.is_supplier &&
         is_employee == other.is_employee &&
-        is_active == other.is_active &&
-        classification == other.classification &&
-        default_currency == other.default_currency &&
-        term_of_payment == other.term_of_payment &&
-        addresses == other.addresses &&
-        phones == other.phones &&
-        emails == other.emails &&
-        contact_persons == other.contact_persons &&
-        other_fields == other.other_fields &&
-        attachments == other.attachments;
+        is_active == other.is_active;
   }
 
   @override
@@ -351,49 +516,20 @@ class _$Result extends Result {
                     $jc(
                         $jc(
                             $jc(
-                                $jc(
-                                    $jc(
-                                        $jc(
-                                            $jc(
-                                                $jc(
-                                                    $jc(
-                                                        $jc(
-                                                            $jc(
-                                                                $jc(
-                                                                    $jc(
-                                                                        $jc(
-                                                                            $jc(
-                                                                                0,
-                                                                                id
-                                                                                    .hashCode),
-                                                                            code
-                                                                                .hashCode),
-                                                                        name
-                                                                            .hashCode),
-                                                                    bussiness_id_number
-                                                                        .hashCode),
-                                                                tax_id_number
-                                                                    .hashCode),
-                                                            credit_limit
-                                                                .hashCode),
-                                                        is_customer.hashCode),
-                                                    is_supplier.hashCode),
-                                                is_employee.hashCode),
-                                            is_active.hashCode),
-                                        classification.hashCode),
-                                    default_currency.hashCode),
-                                term_of_payment.hashCode),
-                            addresses.hashCode),
-                        phones.hashCode),
-                    emails.hashCode),
-                contact_persons.hashCode),
-            other_fields.hashCode),
-        attachments.hashCode));
+                                $jc($jc($jc(0, id.hashCode), code.hashCode),
+                                    name.hashCode),
+                                bussiness_id_number.hashCode),
+                            tax_id_number.hashCode),
+                        credit_limit.hashCode),
+                    is_customer.hashCode),
+                is_supplier.hashCode),
+            is_employee.hashCode),
+        is_active.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('Result')
+    return (newBuiltValueToStringHelper('Results')
           ..add('id', id)
           ..add('code', code)
           ..add('name', name)
@@ -403,22 +539,13 @@ class _$Result extends Result {
           ..add('is_customer', is_customer)
           ..add('is_supplier', is_supplier)
           ..add('is_employee', is_employee)
-          ..add('is_active', is_active)
-          ..add('classification', classification)
-          ..add('default_currency', default_currency)
-          ..add('term_of_payment', term_of_payment)
-          ..add('addresses', addresses)
-          ..add('phones', phones)
-          ..add('emails', emails)
-          ..add('contact_persons', contact_persons)
-          ..add('other_fields', other_fields)
-          ..add('attachments', attachments))
+          ..add('is_active', is_active))
         .toString();
   }
 }
 
-class ResultBuilder implements Builder<Result, ResultBuilder> {
-  _$Result _$v;
+class ResultsBuilder implements Builder<Results, ResultsBuilder> {
+  _$Results _$v;
 
   String _id;
   String get id => _$this._id;
@@ -462,51 +589,9 @@ class ResultBuilder implements Builder<Result, ResultBuilder> {
   bool get is_active => _$this._is_active;
   set is_active(bool is_active) => _$this._is_active = is_active;
 
-  Object _classification;
-  Object get classification => _$this._classification;
-  set classification(Object classification) =>
-      _$this._classification = classification;
+  ResultsBuilder();
 
-  Object _default_currency;
-  Object get default_currency => _$this._default_currency;
-  set default_currency(Object default_currency) =>
-      _$this._default_currency = default_currency;
-
-  Object _term_of_payment;
-  Object get term_of_payment => _$this._term_of_payment;
-  set term_of_payment(Object term_of_payment) =>
-      _$this._term_of_payment = term_of_payment;
-
-  List<Object> _addresses;
-  List<Object> get addresses => _$this._addresses;
-  set addresses(List<Object> addresses) => _$this._addresses = addresses;
-
-  List<Object> _phones;
-  List<Object> get phones => _$this._phones;
-  set phones(List<Object> phones) => _$this._phones = phones;
-
-  List<Object> _emails;
-  List<Object> get emails => _$this._emails;
-  set emails(List<Object> emails) => _$this._emails = emails;
-
-  List<Object> _contact_persons;
-  List<Object> get contact_persons => _$this._contact_persons;
-  set contact_persons(List<Object> contact_persons) =>
-      _$this._contact_persons = contact_persons;
-
-  List<Object> _other_fields;
-  List<Object> get other_fields => _$this._other_fields;
-  set other_fields(List<Object> other_fields) =>
-      _$this._other_fields = other_fields;
-
-  List<Object> _attachments;
-  List<Object> get attachments => _$this._attachments;
-  set attachments(List<Object> attachments) =>
-      _$this._attachments = attachments;
-
-  ResultBuilder();
-
-  ResultBuilder get _$this {
+  ResultsBuilder get _$this {
     if (_$v != null) {
       _id = _$v.id;
       _code = _$v.code;
@@ -518,37 +603,28 @@ class ResultBuilder implements Builder<Result, ResultBuilder> {
       _is_supplier = _$v.is_supplier;
       _is_employee = _$v.is_employee;
       _is_active = _$v.is_active;
-      _classification = _$v.classification;
-      _default_currency = _$v.default_currency;
-      _term_of_payment = _$v.term_of_payment;
-      _addresses = _$v.addresses;
-      _phones = _$v.phones;
-      _emails = _$v.emails;
-      _contact_persons = _$v.contact_persons;
-      _other_fields = _$v.other_fields;
-      _attachments = _$v.attachments;
       _$v = null;
     }
     return this;
   }
 
   @override
-  void replace(Result other) {
+  void replace(Results other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$Result;
+    _$v = other as _$Results;
   }
 
   @override
-  void update(void updates(ResultBuilder b)) {
+  void update(void updates(ResultsBuilder b)) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$Result build() {
+  _$Results build() {
     final _$result = _$v ??
-        new _$Result._(
+        new _$Results._(
             id: id,
             code: code,
             name: name,
@@ -558,16 +634,112 @@ class ResultBuilder implements Builder<Result, ResultBuilder> {
             is_customer: is_customer,
             is_supplier: is_supplier,
             is_employee: is_employee,
-            is_active: is_active,
-            classification: classification,
-            default_currency: default_currency,
-            term_of_payment: term_of_payment,
-            addresses: addresses,
-            phones: phones,
-            emails: emails,
-            contact_persons: contact_persons,
-            other_fields: other_fields,
-            attachments: attachments);
+            is_active: is_active);
+    replace(_$result);
+    return _$result;
+  }
+}
+
+class _$PageContext extends PageContext {
+  @override
+  final int page;
+  @override
+  final int per_page;
+  @override
+  final int total_pages;
+
+  factory _$PageContext([void updates(PageContextBuilder b)]) =>
+      (new PageContextBuilder()..update(updates)).build();
+
+  _$PageContext._({this.page, this.per_page, this.total_pages}) : super._() {
+    if (page == null) {
+      throw new BuiltValueNullFieldError('PageContext', 'page');
+    }
+    if (per_page == null) {
+      throw new BuiltValueNullFieldError('PageContext', 'per_page');
+    }
+    if (total_pages == null) {
+      throw new BuiltValueNullFieldError('PageContext', 'total_pages');
+    }
+  }
+
+  @override
+  PageContext rebuild(void updates(PageContextBuilder b)) =>
+      (toBuilder()..update(updates)).build();
+
+  @override
+  PageContextBuilder toBuilder() => new PageContextBuilder()..replace(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(other, this)) return true;
+    return other is PageContext &&
+        page == other.page &&
+        per_page == other.per_page &&
+        total_pages == other.total_pages;
+  }
+
+  @override
+  int get hashCode {
+    return $jf($jc(
+        $jc($jc(0, page.hashCode), per_page.hashCode), total_pages.hashCode));
+  }
+
+  @override
+  String toString() {
+    return (newBuiltValueToStringHelper('PageContext')
+          ..add('page', page)
+          ..add('per_page', per_page)
+          ..add('total_pages', total_pages))
+        .toString();
+  }
+}
+
+class PageContextBuilder implements Builder<PageContext, PageContextBuilder> {
+  _$PageContext _$v;
+
+  int _page;
+  int get page => _$this._page;
+  set page(int page) => _$this._page = page;
+
+  int _per_page;
+  int get per_page => _$this._per_page;
+  set per_page(int per_page) => _$this._per_page = per_page;
+
+  int _total_pages;
+  int get total_pages => _$this._total_pages;
+  set total_pages(int total_pages) => _$this._total_pages = total_pages;
+
+  PageContextBuilder();
+
+  PageContextBuilder get _$this {
+    if (_$v != null) {
+      _page = _$v.page;
+      _per_page = _$v.per_page;
+      _total_pages = _$v.total_pages;
+      _$v = null;
+    }
+    return this;
+  }
+
+  @override
+  void replace(PageContext other) {
+    if (other == null) {
+      throw new ArgumentError.notNull('other');
+    }
+    _$v = other as _$PageContext;
+  }
+
+  @override
+  void update(void updates(PageContextBuilder b)) {
+    if (updates != null) updates(this);
+  }
+
+  @override
+  _$PageContext build() {
+    final _$result = _$v ??
+        new _$PageContext._(
+            page: page, per_page: per_page, total_pages: total_pages);
     replace(_$result);
     return _$result;
   }
@@ -577,30 +749,17 @@ class _$ContactsModel extends ContactsModel {
   @override
   final int count;
   @override
-  final Object page_context;
+  final PageContext page_context;
   @override
   final Links links;
   @override
-  final List<Result> results;
+  final BuiltList<Results> results;
 
   factory _$ContactsModel([void updates(ContactsModelBuilder b)]) =>
       (new ContactsModelBuilder()..update(updates)).build();
 
   _$ContactsModel._({this.count, this.page_context, this.links, this.results})
-      : super._() {
-    if (count == null) {
-      throw new BuiltValueNullFieldError('ContactsModel', 'count');
-    }
-    if (page_context == null) {
-      throw new BuiltValueNullFieldError('ContactsModel', 'page_context');
-    }
-    if (links == null) {
-      throw new BuiltValueNullFieldError('ContactsModel', 'links');
-    }
-    if (results == null) {
-      throw new BuiltValueNullFieldError('ContactsModel', 'results');
-    }
-  }
+      : super._();
 
   @override
   ContactsModel rebuild(void updates(ContactsModelBuilder b)) =>
@@ -645,26 +804,29 @@ class ContactsModelBuilder
   int get count => _$this._count;
   set count(int count) => _$this._count = count;
 
-  Object _page_context;
-  Object get page_context => _$this._page_context;
-  set page_context(Object page_context) => _$this._page_context = page_context;
+  PageContextBuilder _page_context;
+  PageContextBuilder get page_context =>
+      _$this._page_context ??= new PageContextBuilder();
+  set page_context(PageContextBuilder page_context) =>
+      _$this._page_context = page_context;
 
   LinksBuilder _links;
   LinksBuilder get links => _$this._links ??= new LinksBuilder();
   set links(LinksBuilder links) => _$this._links = links;
 
-  List<Result> _results;
-  List<Result> get results => _$this._results;
-  set results(List<Result> results) => _$this._results = results;
+  ListBuilder<Results> _results;
+  ListBuilder<Results> get results =>
+      _$this._results ??= new ListBuilder<Results>();
+  set results(ListBuilder<Results> results) => _$this._results = results;
 
   ContactsModelBuilder();
 
   ContactsModelBuilder get _$this {
     if (_$v != null) {
       _count = _$v.count;
-      _page_context = _$v.page_context;
+      _page_context = _$v.page_context?.toBuilder();
       _links = _$v.links?.toBuilder();
-      _results = _$v.results;
+      _results = _$v.results?.toBuilder();
       _$v = null;
     }
     return this;
@@ -690,14 +852,18 @@ class ContactsModelBuilder
       _$result = _$v ??
           new _$ContactsModel._(
               count: count,
-              page_context: page_context,
-              links: links.build(),
-              results: results);
+              page_context: _page_context?.build(),
+              links: _links?.build(),
+              results: _results?.build());
     } catch (_) {
       String _$failedField;
       try {
+        _$failedField = 'page_context';
+        _page_context?.build();
         _$failedField = 'links';
-        links.build();
+        _links?.build();
+        _$failedField = 'results';
+        _results?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             'ContactsModel', _$failedField, e.toString());

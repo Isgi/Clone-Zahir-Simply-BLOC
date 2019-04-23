@@ -26,10 +26,12 @@ dependencies:
   validate: ^1.7.0
   collection: ^1.14.11
   built_collection: ^4.1.0
-  rxdart: ^0.20.0
+  rxdart: ^0.21.0
   http: ^0.12.0+1
   shimmer: ^1.0.0
   built_value: ^6.3.0
+  flutter_bloc: ^0.11.1
+  kiwi: ^0.1.0
 
 dev_dependencies:
   flutter_test:

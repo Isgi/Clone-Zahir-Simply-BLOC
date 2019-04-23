@@ -1,52 +1,35 @@
-import 'dart:collection' show UnmodifiableListView;
+library contacts_state;
 
-import 'package:collection/collection.dart' show ListEquality;
+import 'package:built_collection/built_collection.dart';
+import 'package:built_value/built_value.dart';
 import 'package:zahir_online_clone/models/contacts_model.dart';
-import 'package:meta/meta.dart';
+part 'contacts_state.g.dart';
 
-@immutable
-class ContactsState {
-  final ContactsModel contacts;
-  final bool isLoading;
-  final Object error;
+abstract class ContactsState implements Built<ContactsState, ContactsStateBuilder> {
+  BuiltList<Results> get results;
+  int get count;
+  @nullable
+  PageContext get page_context;
+  @nullable
+  Links get links;
 
-  const ContactsState({
-    @required this.contacts,
-    @required this.isLoading,
-    @required this.error,
-  });
+  ContactsState._();
 
-  factory ContactsState.initial() =>
-      ContactsState(
-        isLoading: false,
-        contacts: null,
-        error: null,
-      );
+  factory ContactsState([updates(ContactsStateBuilder b)]) = _$ContactsState;
 
-  ContactsState copyWith({
-    List<ContactsModel> contacts,
-    bool isLoading,
-    Object error,
-  }) =>
-      ContactsState(
-        error: error,
-        contacts: contacts != null ? contacts : this.contacts,
-        isLoading: isLoading ?? this.isLoading,
-      );
+  factory ContactsState.initial() {
+    return ContactsState((b) => b
+      ..results.replace(BuiltList<Results>())
+      ..count = 0
+      ..page_context = null
+      ..links = null);
+  }
 
-//  @override
-//  bool operator ==(Object other) =>
-//      identical(this, other) ||
-//          other is ContactsState &&
-//              runtimeType == other.runtimeType &&
-//              const ListEquality().equals(contacts, other.contacts) &&
-//              isLoading == other.isLoading;
-
-  @override
-  int get hashCode => contacts.hashCode ^ isLoading.hashCode;
-
-  @override
-  String toString() =>
-      'ContactsState(people.length=${contacts.results
-          .length}, isLoading=$isLoading, error=$error)';
+  factory ContactsState.success(ContactsModel contactsModel) {
+    return ContactsState((b) => b
+      ..results.replace(contactsModel.results)
+      ..links.replace(contactsModel.links)
+      ..page_context.replace(contactsModel.page_context)
+      ..count = contactsModel.count);
+  }
 }
