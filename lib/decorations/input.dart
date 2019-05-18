@@ -4,13 +4,23 @@ class Input extends InputDecoration {
 
   String hintText;
   Icon prefixIcon;
+  EdgeInsetsGeometry contentPadding;
+  bool dark;
   bool collapsed;
+  bool enableBorder = true;
+  Color hintColor;
 
   Input.notCollapsed({
     @required this.hintText,
-    @required this.prefixIcon
+    this.prefixIcon,
+    this.contentPadding,
+    this.dark,
+    this.enableBorder,
+    this.hintColor
   }){
     this.collapsed = false;
+    this.dark = dark;
+    this.contentPadding = contentPadding;
   }
 
   @override
@@ -18,24 +28,32 @@ class Input extends InputDecoration {
     // TODO: implement copyWith
     if (!this.collapsed) {
       return super.copyWith(
+        contentPadding: this.contentPadding != null ? this.contentPadding : null,
         hintText: this.hintText,
-        prefixIcon: Icon(
+        prefixIcon: this.prefixIcon != null ? Icon(
           this.prefixIcon.icon,
           size: 20.0,
-          color: Colors.white70,
-        ),
+          color: this.dark != null && this.dark ? Colors.black45 : Colors.white70,
+        ) : null,
         hintStyle: TextStyle(
-            color: Colors.white70,
-            fontWeight: FontWeight.w100
+          color: this.hintColor != null ? this.hintColor : (this.dark != null && this.dark ? Colors.black45 : Colors.white70),
         ),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-              color: Colors.white70
+            color: this.enableBorder != null && this.enableBorder
+              ? (this.dark != null && this.dark
+                ? Colors.black45
+                : Colors.white70)
+              : Colors.transparent,
           ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-              color: Colors.white70
+            color: this.enableBorder != null && this.enableBorder
+              ? (this.dark != null && this.dark
+                ? Colors.black45
+                : Colors.white70)
+              : Colors.transparent,
           ),
         ),
       );

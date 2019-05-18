@@ -22,14 +22,18 @@ class _$LinksSerializer implements StructuredSerializer<Links> {
   Iterable serialize(Serializers serializers, Links object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
-      'next',
-      serializers.serialize(object.next, specifiedType: const FullType(String)),
       'first',
       serializers.serialize(object.first,
           specifiedType: const FullType(String)),
       'last',
       serializers.serialize(object.last, specifiedType: const FullType(String)),
     ];
+    if (object.next != null) {
+      result
+        ..add('next')
+        ..add(serializers.serialize(object.next,
+            specifiedType: const FullType(String)));
+    }
     if (object.previous != null) {
       result
         ..add('previous')
@@ -336,9 +340,6 @@ class _$Links extends Links {
       (new LinksBuilder()..update(updates)).build();
 
   _$Links._({this.next, this.previous, this.first, this.last}) : super._() {
-    if (next == null) {
-      throw new BuiltValueNullFieldError('Links', 'next');
-    }
     if (first == null) {
       throw new BuiltValueNullFieldError('Links', 'first');
     }

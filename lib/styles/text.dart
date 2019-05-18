@@ -4,14 +4,14 @@ const titleLight = const TextStyle(
   color: Colors.white,
   fontSize: 16.0,
   fontFamily: 'arial',
-  fontWeight: FontWeight.w800
+  fontWeight: FontWeight.w800,
 );
 
 const titleDark = const TextStyle(
     color: Colors.black,
-    fontSize: 16.0,
+    fontSize: 20.0,
     fontFamily: 'arial',
-    fontWeight: FontWeight.w800
+    fontWeight: FontWeight.w500
 );
 
 const subtitleLight = const TextStyle(
@@ -34,7 +34,5 @@ const subtitleLightBold = const TextStyle(
 );
 
 const labelDark = const TextStyle(
-    color: Colors.black,
-    fontSize: 12.0,
-    fontFamily: 'arial'
+  fontSize: 13.0,
 );

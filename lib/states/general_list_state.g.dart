@@ -6,42 +6,59 @@ part of contacts_state;
 // BuiltValueGenerator
 // **************************************************************************
 
-class _$ContactsState extends ContactsState {
+class _$GeneralListState extends GeneralListState {
   @override
   final BuiltList<Results> results;
   @override
   final int count;
   @override
+  final bool getPending;
+  @override
+  final bool loadmorePending;
+  @override
+  final bool searchPending;
+  @override
   final PageContext page_context;
   @override
   final Links links;
 
-  factory _$ContactsState([void updates(ContactsStateBuilder b)]) =>
-      (new ContactsStateBuilder()..update(updates)).build();
+  factory _$GeneralListState([void updates(GeneralListStateBuilder b)]) =>
+      (new GeneralListStateBuilder()..update(updates)).build();
 
-  _$ContactsState._({this.results, this.count, this.page_context, this.links})
+  _$GeneralListState._(
+      {this.results,
+      this.count,
+      this.getPending,
+      this.loadmorePending,
+      this.searchPending,
+      this.page_context,
+      this.links})
       : super._() {
     if (results == null) {
-      throw new BuiltValueNullFieldError('ContactsState', 'results');
+      throw new BuiltValueNullFieldError('GeneralListState', 'results');
     }
     if (count == null) {
-      throw new BuiltValueNullFieldError('ContactsState', 'count');
+      throw new BuiltValueNullFieldError('GeneralListState', 'count');
     }
   }
 
   @override
-  ContactsState rebuild(void updates(ContactsStateBuilder b)) =>
+  GeneralListState rebuild(void updates(GeneralListStateBuilder b)) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  ContactsStateBuilder toBuilder() => new ContactsStateBuilder()..replace(this);
+  GeneralListStateBuilder toBuilder() =>
+      new GeneralListStateBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is ContactsState &&
+    return other is GeneralListState &&
         results == other.results &&
         count == other.count &&
+        getPending == other.getPending &&
+        loadmorePending == other.loadmorePending &&
+        searchPending == other.searchPending &&
         page_context == other.page_context &&
         links == other.links;
   }
@@ -49,25 +66,34 @@ class _$ContactsState extends ContactsState {
   @override
   int get hashCode {
     return $jf($jc(
-        $jc($jc($jc(0, results.hashCode), count.hashCode),
+        $jc(
+            $jc(
+                $jc(
+                    $jc($jc($jc(0, results.hashCode), count.hashCode),
+                        getPending.hashCode),
+                    loadmorePending.hashCode),
+                searchPending.hashCode),
             page_context.hashCode),
         links.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('ContactsState')
+    return (newBuiltValueToStringHelper('GeneralListState')
           ..add('results', results)
           ..add('count', count)
+          ..add('getPending', getPending)
+          ..add('loadmorePending', loadmorePending)
+          ..add('searchPending', searchPending)
           ..add('page_context', page_context)
           ..add('links', links))
         .toString();
   }
 }
 
-class ContactsStateBuilder
-    implements Builder<ContactsState, ContactsStateBuilder> {
-  _$ContactsState _$v;
+class GeneralListStateBuilder
+    implements Builder<GeneralListState, GeneralListStateBuilder> {
+  _$GeneralListState _$v;
 
   ListBuilder<Results> _results;
   ListBuilder<Results> get results =>
@@ -77,6 +103,20 @@ class ContactsStateBuilder
   int _count;
   int get count => _$this._count;
   set count(int count) => _$this._count = count;
+
+  bool _getPending;
+  bool get getPending => _$this._getPending;
+  set getPending(bool getPending) => _$this._getPending = getPending;
+
+  bool _loadmorePending;
+  bool get loadmorePending => _$this._loadmorePending;
+  set loadmorePending(bool loadmorePending) =>
+      _$this._loadmorePending = loadmorePending;
+
+  bool _searchPending;
+  bool get searchPending => _$this._searchPending;
+  set searchPending(bool searchPending) =>
+      _$this._searchPending = searchPending;
 
   PageContextBuilder _page_context;
   PageContextBuilder get page_context =>
@@ -88,12 +128,15 @@ class ContactsStateBuilder
   LinksBuilder get links => _$this._links ??= new LinksBuilder();
   set links(LinksBuilder links) => _$this._links = links;
 
-  ContactsStateBuilder();
+  GeneralListStateBuilder();
 
-  ContactsStateBuilder get _$this {
+  GeneralListStateBuilder get _$this {
     if (_$v != null) {
       _results = _$v.results?.toBuilder();
       _count = _$v.count;
+      _getPending = _$v.getPending;
+      _loadmorePending = _$v.loadmorePending;
+      _searchPending = _$v.searchPending;
       _page_context = _$v.page_context?.toBuilder();
       _links = _$v.links?.toBuilder();
       _$v = null;
@@ -102,26 +145,29 @@ class ContactsStateBuilder
   }
 
   @override
-  void replace(ContactsState other) {
+  void replace(GeneralListState other) {
     if (other == null) {
       throw new ArgumentError.notNull('other');
     }
-    _$v = other as _$ContactsState;
+    _$v = other as _$GeneralListState;
   }
 
   @override
-  void update(void updates(ContactsStateBuilder b)) {
+  void update(void updates(GeneralListStateBuilder b)) {
     if (updates != null) updates(this);
   }
 
   @override
-  _$ContactsState build() {
-    _$ContactsState _$result;
+  _$GeneralListState build() {
+    _$GeneralListState _$result;
     try {
       _$result = _$v ??
-          new _$ContactsState._(
+          new _$GeneralListState._(
               results: results.build(),
               count: count,
+              getPending: getPending,
+              loadmorePending: loadmorePending,
+              searchPending: searchPending,
               page_context: _page_context?.build(),
               links: _links?.build());
     } catch (_) {
@@ -136,7 +182,7 @@ class ContactsStateBuilder
         _links?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'ContactsState', _$failedField, e.toString());
+            'GeneralListState', _$failedField, e.toString());
       }
       rethrow;
     }

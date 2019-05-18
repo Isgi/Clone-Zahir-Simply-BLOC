@@ -8,6 +8,7 @@ part 'contacts_model.g.dart';
 
 abstract class Links implements Built<Links, LinksBuilder> {
 
+  @nullable
   String get next;
 
   @nullable

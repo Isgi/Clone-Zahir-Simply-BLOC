@@ -6,18 +6,18 @@ import 'package:zahir_online_clone/styles/text.dart' as textStyles;
 
 class ContactsCreate extends StatelessWidget {
 
+  final _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
-      appBar: new AppBar(
-        title: new Text('Create Contacts'),
-        backgroundColor: Colors.blue,
-      ),
-      body: new Container(
-        color: Colors.white,
-        child: new Center(
-          child: new Text('Create Contacts'),
-        ),
+      body: new CustomScrollView(
+        controller: _scrollController,
+        slivers: <Widget>[
+          SliverAppBar(
+            backgroundColor: Colors.white,
+          )
+        ],
       )
     );
   }

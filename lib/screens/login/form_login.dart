@@ -45,7 +45,7 @@ class _FormLoginState extends State<FormLogin> {
               validator: validateEmail,
               decoration: new Input.notCollapsed(
                 hintText: 'Email',
-                prefixIcon: Icon(Icons.email),
+                prefixIcon: Icon(Icons.email)
               ),
               style: textStyles.subtitleLight,
               onSaved: (String value) {
