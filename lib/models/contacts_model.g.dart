@@ -95,6 +95,12 @@ class _$ResultsSerializer implements StructuredSerializer<Results> {
       'name',
       serializers.serialize(object.name, specifiedType: const FullType(String)),
     ];
+    if (object.selected != null) {
+      result
+        ..add('selected')
+        ..add(serializers.serialize(object.selected,
+            specifiedType: const FullType(bool)));
+    }
     if (object.bussiness_id_number != null) {
       result
         ..add('bussiness_id_number')
@@ -163,6 +169,10 @@ class _$ResultsSerializer implements StructuredSerializer<Results> {
         case 'name':
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
+          break;
+        case 'selected':
+          result.selected = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool;
           break;
         case 'bussiness_id_number':
           result.bussiness_id_number = serializers.deserialize(value,
@@ -445,6 +455,8 @@ class _$Results extends Results {
   @override
   final String name;
   @override
+  final bool selected;
+  @override
   final String bussiness_id_number;
   @override
   final String tax_id_number;
@@ -466,6 +478,7 @@ class _$Results extends Results {
       {this.id,
       this.code,
       this.name,
+      this.selected,
       this.bussiness_id_number,
       this.tax_id_number,
       this.credit_limit,
@@ -499,6 +512,7 @@ class _$Results extends Results {
         id == other.id &&
         code == other.code &&
         name == other.name &&
+        selected == other.selected &&
         bussiness_id_number == other.bussiness_id_number &&
         tax_id_number == other.tax_id_number &&
         credit_limit == other.credit_limit &&
@@ -517,8 +531,10 @@ class _$Results extends Results {
                     $jc(
                         $jc(
                             $jc(
-                                $jc($jc($jc(0, id.hashCode), code.hashCode),
-                                    name.hashCode),
+                                $jc(
+                                    $jc($jc($jc(0, id.hashCode), code.hashCode),
+                                        name.hashCode),
+                                    selected.hashCode),
                                 bussiness_id_number.hashCode),
                             tax_id_number.hashCode),
                         credit_limit.hashCode),
@@ -534,6 +550,7 @@ class _$Results extends Results {
           ..add('id', id)
           ..add('code', code)
           ..add('name', name)
+          ..add('selected', selected)
           ..add('bussiness_id_number', bussiness_id_number)
           ..add('tax_id_number', tax_id_number)
           ..add('credit_limit', credit_limit)
@@ -559,6 +576,10 @@ class ResultsBuilder implements Builder<Results, ResultsBuilder> {
   String _name;
   String get name => _$this._name;
   set name(String name) => _$this._name = name;
+
+  bool _selected;
+  bool get selected => _$this._selected;
+  set selected(bool selected) => _$this._selected = selected;
 
   String _bussiness_id_number;
   String get bussiness_id_number => _$this._bussiness_id_number;
@@ -597,6 +618,7 @@ class ResultsBuilder implements Builder<Results, ResultsBuilder> {
       _id = _$v.id;
       _code = _$v.code;
       _name = _$v.name;
+      _selected = _$v.selected;
       _bussiness_id_number = _$v.bussiness_id_number;
       _tax_id_number = _$v.tax_id_number;
       _credit_limit = _$v.credit_limit;
@@ -629,6 +651,7 @@ class ResultsBuilder implements Builder<Results, ResultsBuilder> {
             id: id,
             code: code,
             name: name,
+            selected: selected,
             bussiness_id_number: bussiness_id_number,
             tax_id_number: tax_id_number,
             credit_limit: credit_limit,

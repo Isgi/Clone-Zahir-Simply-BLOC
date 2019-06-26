@@ -63,3 +63,4 @@ abstract class GeneralListState implements Built<GeneralListState, GeneralListSt
       ..loadmorePending = false);
   }
 }
+

@@ -34,6 +34,13 @@ abstract class Results implements Built<Results, ResultsBuilder> {
   String get name;
 
   @nullable
+  bool get selected;
+
+  set selected(bool selected) {
+    selected = selected;
+  }
+
+  @nullable
   String get bussiness_id_number;
 
   @nullable

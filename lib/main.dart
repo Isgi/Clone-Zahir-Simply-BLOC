@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'ZahirX',
       initialRoute: '/',
-      onGenerateRoute: routes,
+      routes: routes,
       theme: new ThemeData(
         brightness: Brightness.light,
       ),
